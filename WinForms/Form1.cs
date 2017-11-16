@@ -35,7 +35,8 @@ namespace WinForms
                 DateTime fecha = dateTimeFecha.Value;
                 string cuerpo = txtCuerpo.Text;
                 int idCategoria = (int)cmbCategoria.SelectedValue;
-                Publicar_Noticia(titulo, fecha, cuerpo, idCategoria);
+                string autor = txtAutor.Text;
+                Publicar_Noticia(titulo, fecha, cuerpo, idCategoria, autor);
 
                 //Se notifica al usuario
                 lblNotificacion.Text = "La noticia se ha publicado correctamente!";
@@ -59,18 +60,24 @@ namespace WinForms
             CategoriaBusiness oCategoriaBusiness = new CategoriaBusiness();
             cmbCategoria.DataSource = oCategoriaBusiness.GetCategorias().Tables[0];
         }
-        public void Publicar_Noticia(string titulo, DateTime fecha, string cuerpo, int idCat) {
+        public void Publicar_Noticia(string titulo, DateTime fecha, string cuerpo, int idCat, string autor) {
             var oNoticia = new Noticia()
             {
                 Titulo = titulo,
                 Cuerpo = cuerpo,
-                Fecha =fecha,
+                Fecha = fecha,
+                Autor = autor,
                 IdCategoria = idCat,
             };
             using (NoticiaBusiness n = new NoticiaBusiness())
             {
                 n.InsertNoticia(oNoticia);
             }
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

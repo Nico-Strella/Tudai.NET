@@ -14,11 +14,12 @@ namespace DAL
                 oComm.Transaction = oTran;
 
                 oComm.CommandType = CommandType.Text;
-                oComm.CommandText = string.Format("INSERT INTO {0}.{1}(titulo,fecha,cuerpo,id_categoria) VALUES (@titulo, @fecha, @cuerpo, @id_categoria)", Constants.esquema, Constants.tablaNoticias);
+                oComm.CommandText = string.Format("INSERT INTO {0}.{1}(titulo,fecha,cuerpo,id_categoria,autor) VALUES (@titulo, @fecha, @cuerpo, @id_categoria,@autor)", Constants.esquema, Constants.tablaNoticias);
 
                 oComm.Parameters.AddWithValue("@titulo", oNoticia.Titulo);
                 oComm.Parameters.AddWithValue("@fecha", oNoticia.Fecha);
-                oComm.Parameters.AddWithValue("@cuerpo", oNoticia.Cuerpo);                
+                oComm.Parameters.AddWithValue("@cuerpo", oNoticia.Cuerpo);
+                oComm.Parameters.AddWithValue("@autor", oNoticia.Autor);
                 oComm.Parameters.AddWithValue("@id_categoria", oNoticia.IdCategoria == null ? DBNull.Value : (object)oNoticia.IdCategoria);
 
                 oComm.ExecuteNonQuery();
