@@ -22,7 +22,6 @@ namespace TUDAI
             {
                 case "editar":
                     Response.Redirect("alta_noticia.aspx?edit=true", false);
-
                     break;
                 case "mostrar":
                     Response.Redirect("alta_noticia.aspx?mostrar=true", false);

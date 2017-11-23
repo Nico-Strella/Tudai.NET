@@ -68,7 +68,7 @@ namespace DAL
                         oComm.Transaction = oTran;
 
                         oComm.CommandType = CommandType.Text;
-                        oComm.CommandText = string.Format("SELECT [id],[titulo],[fecha],[cuerpo],[id_categoria] FROM {0}.{1}", Constants.esquema, Constants.tablaNoticias);
+                        oComm.CommandText = string.Format("SELECT [id],[titulo],[fecha],[cuerpo],[id_categoria],[autor] FROM {0}.{1}", Constants.esquema, Constants.tablaNoticias);
                         
                         adapter.SelectCommand = oComm;
                         adapter.Fill(ds);

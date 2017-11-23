@@ -18,6 +18,9 @@
 
         </asp:DropDownList>            
     </div>
+     <div class="form-group">
+        <asp:TextBox ID="txt_autor" runat="server" placeholder="Autor" CssClass="form-control"></asp:TextBox>
+    </div>
     <div class="form-group">
         <asp:Button ID="btn_submit" runat="server" OnClick="Publicar_Noticia" Text="Publicar" CssClass="btn btn-default"/>
     </div>

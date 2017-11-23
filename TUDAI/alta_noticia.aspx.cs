@@ -24,6 +24,11 @@ namespace TUDAI
                     {
                         oNoticia = Noticia.getFromDataRow(oNoticiaBusiness.GetNoticiaById(oNoticia).Tables[0].Rows[0]);
                     }
+
+                    this.txt_titulo.Text = oNoticia.Titulo;
+                    this.date_fecha.SelectedDate = oNoticia.Fecha;
+                    this.txt_cuerpo.Text = oNoticia.Cuerpo;
+                    this.txt_autor.Text = oNoticia.Autor;
                 }
             }
         }
@@ -42,6 +47,7 @@ namespace TUDAI
                 Titulo = txt_titulo.Text,
                 Cuerpo = txt_cuerpo.Text,
                 Fecha = date_fecha.SelectedDate,
+                Autor = txt_autor.Text,
                 IdCategoria = string.IsNullOrEmpty(ddl_categorias.SelectedValue) ? -1 : int.Parse(ddl_categorias.SelectedValue),
             };
             using (NoticiaBusiness n = new NoticiaBusiness())
