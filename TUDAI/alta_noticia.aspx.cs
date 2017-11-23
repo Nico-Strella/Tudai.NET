@@ -12,6 +12,19 @@ namespace TUDAI
             if (!IsPostBack)
             {
                 CargarDdls();
+
+                if (!string.IsNullOrEmpty(Request.QueryString.Get("edit")) && (Request.QueryString.Get("edit").Equals("true")))
+                {
+                    int id = (int) Session["idNoticia"];
+
+                    Noticia oNoticia = new Noticia();
+                    oNoticia.Id = id;
+
+                    using (NoticiaBusiness oNoticiaBusiness = new NoticiaBusiness())
+                    {
+                        oNoticia = Noticia.getFromDataRow(oNoticiaBusiness.GetNoticiaById(oNoticia).Tables[0].Rows[0]);
+                    }
+                }
             }
         }
 

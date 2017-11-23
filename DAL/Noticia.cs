@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 
 namespace DAL
 {
@@ -21,6 +22,20 @@ namespace DAL
         public Noticia()
             : base()
         {
+        }
+
+        public static Noticia getFromDataRow(DataRow row)
+        {
+            Noticia oNoticia = new Noticia()
+            {
+                Id = Convert.ToInt32(row["id"]),
+                Titulo = Convert.ToString(row["titulo"]),
+                Fecha = Convert.ToDateTime(row["fecha"]),
+                Cuerpo = Convert.ToString(row["cuerpo"]),
+                Autor = Convert.ToString(row["autor"])
+            };
+
+            return oNoticia;
         }
 
         #endregion

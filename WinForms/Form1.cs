@@ -22,7 +22,7 @@ namespace WinForms
         {
             //Se validan los campos requeridos
             if (string.IsNullOrEmpty(txtTituloNoticia.Text) || string.IsNullOrEmpty(txtCuerpo.Text)
-                || dateTimeFecha.Value == null || cmbCategoria.SelectedValue == null)
+                || dateTimeFecha.Value == null || cmbCategoria.SelectedValue == null || string.IsNullOrEmpty(txtAutor.Text))
             {
                 lblNotificacion.Text = "Todos los campos son requeridos";
                 lblNotificacion.ForeColor = Color.Red;
