@@ -32,6 +32,7 @@ namespace DAL
                 Titulo = Convert.ToString(row["titulo"]),
                 Fecha = Convert.ToDateTime(row["fecha"]),
                 Cuerpo = Convert.ToString(row["cuerpo"]),
+                IdCategoria = Convert.ToInt32(row["id_categoria"]),
                 Autor = Convert.ToString(row["autor"])
             };
 
