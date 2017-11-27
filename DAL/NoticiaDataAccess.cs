@@ -55,6 +55,36 @@ namespace DAL
             }
         }
 
+        public DataSet Filtrar(SqlConnection oConn, SqlTransaction oTran, Noticia oNoticia)
+        {
+            using (SqlDataAdapter adapter = new SqlDataAdapter())
+            {
+                using (SqlCommand oComm = new SqlCommand())
+                {
+                    try
+                    {
+                        DataSet ds = new DataSet();
+                        oComm.Connection = oTran != null ? oTran.Connection : oConn;
+                        oComm.Transaction = oTran;
+
+                        oComm.CommandType = CommandType.Text;
+                        oComm.CommandText = string.Format("SELECT [id],[titulo],[fecha],[cuerpo],[id_categoria],[autor] FROM {0}.{1} WHERE autor like '%@autor%' and id_categoria=@id_categoria", Constants.esquema, Constants.tablaNoticias);
+                        
+                        oComm.Parameters.AddWithValue("autor", oNoticia.Autor);
+                        oComm.Parameters.AddWithValue("id_categoria", oNoticia.IdCategoria);
+
+                        adapter.SelectCommand = oComm;
+                        adapter.Fill(ds);
+
+                        return ds;
+                    }
+                    finally
+                    {
+                    }
+                }
+            }
+        }
+
         public void updateNoticia(SqlConnection oConn, SqlTransaction oTran, Noticia oNoticia)
         {
             using (SqlDataAdapter adapter = new SqlDataAdapter())
@@ -100,6 +130,33 @@ namespace DAL
                         oComm.CommandType = CommandType.Text;
                         oComm.CommandText = string.Format("SELECT [id],[titulo],[fecha],[cuerpo],[id_categoria],[autor] FROM {0}.{1}", Constants.esquema, Constants.tablaNoticias);
                         
+                        adapter.SelectCommand = oComm;
+                        adapter.Fill(ds);
+
+                        return ds;
+                    }
+                    finally
+                    {
+                    }
+                }
+            }
+        }
+
+        public DataSet GetCategorias(SqlConnection oConn, SqlTransaction oTran)
+        {
+            using (SqlDataAdapter adapter = new SqlDataAdapter())
+            {
+                using (SqlCommand oComm = new SqlCommand())
+                {
+                    try
+                    {
+                        DataSet ds = new DataSet();
+                        oComm.Connection = oTran != null ? oTran.Connection : oConn;
+                        oComm.Transaction = oTran;
+
+                        oComm.CommandType = CommandType.Text;
+                        oComm.CommandText = string.Format("SELECT [id_categoria] FROM {0}.{1}", Constants.esquema, Constants.tablaCategorias);
+
                         adapter.SelectCommand = oComm;
                         adapter.Fill(ds);
 

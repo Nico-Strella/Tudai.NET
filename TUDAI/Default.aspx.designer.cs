@@ -13,6 +13,33 @@ namespace TUDAI {
     public partial class Default {
         
         /// <summary>
+        /// txt_autor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_autor;
+        
+        /// <summary>
+        /// ddl_categorias control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_categorias;
+        
+        /// <summary>
+        /// btn_filtrar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_filtrar;
+        
+        /// <summary>
         /// gvNoticias control.
         /// </summary>
         /// <remarks>

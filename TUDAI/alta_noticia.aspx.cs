@@ -31,7 +31,7 @@ namespace TUDAI
                     this.date_fecha.SelectedDate = oNoticia.Fecha;
                     this.txt_cuerpo.Text = oNoticia.Cuerpo;
                     this.txt_autor.Text = oNoticia.Autor;
-                    this.ddl_categorias.SelectedIndex = (int)oNoticia.IdCategoria;                    
+                    this.ddl_categorias.SelectedIndex = (int) oNoticia.IdCategoria;
 
                     if (Request.QueryString.Get("edit").Equals("false"))
                     {

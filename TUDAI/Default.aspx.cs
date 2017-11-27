@@ -1,5 +1,6 @@
 ﻿using System;
 using DAL;
+using System.Data;
 
 namespace TUDAI
 {
@@ -7,14 +8,21 @@ namespace TUDAI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            gvNoticias.DataSource = new NoticiaBusiness().GetNoticias();
-            gvNoticias.DataBind();
+            if (!IsPostBack)
+            {
+                gvNoticias.DataSource = new NoticiaBusiness().GetNoticias();
+                gvNoticias.DataBind();
+
+                ddl_categorias.DataSource = new CategoriaBusiness().GetCategorias();
+                ddl_categorias.DataBind();
+            }
+            
         }
 
         protected void gvNoticias_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
 
-            int id = (int) this.gvNoticias.DataKeys[Convert.ToInt32(e.CommandArgument)].Value;
+            int id = (int)this.gvNoticias.DataKeys[Convert.ToInt32(e.CommandArgument)].Value;
 
             Session.Add("idNoticia", id);
 
@@ -32,6 +40,25 @@ namespace TUDAI
                 default:
                     break;
             }
+        }
+
+        protected void Filtrar(object sender, EventArgs e)
+        {
+            var oNoticia = new Noticia()
+            {
+                Autor = txt_autor.Text,
+                IdCategoria = string.IsNullOrEmpty(ddl_categorias.SelectedValue) ? -1 : int.Parse(ddl_categorias.SelectedValue),
+            };
+
+            DataSet ds;
+
+            using (NoticiaBusiness n = new NoticiaBusiness())
+            {
+                ds = n.Filtrar(oNoticia);
+            }
+
+            gvNoticias.DataSource = ds;
+            gvNoticias.DataBind();
         }
     }
 }

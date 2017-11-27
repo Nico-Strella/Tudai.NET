@@ -65,6 +65,23 @@ namespace DAL
             }
         }
 
+        public DataSet Filtrar(Noticia oNoticia)
+        {
+            SqlConnection oConn = new SqlConnection(Constants.connectionString);
+            oConn.Open();
+            try
+            {
+                using (NoticiaDataAccess tDataAccess = new NoticiaDataAccess())
+                {
+                    return tDataAccess.Filtrar(oConn, null, oNoticia);
+                }
+            }
+            finally
+            {
+                oConn.Close();
+            }
+        }
+
         public DataSet GetNoticias()
         {
             SqlConnection oConn = new SqlConnection(Constants.connectionString);
@@ -74,6 +91,23 @@ namespace DAL
                 using (NoticiaDataAccess tDataAccess = new NoticiaDataAccess())
                 {
                     return tDataAccess.GetAll(oConn, null);
+                }
+            }
+            finally
+            {
+                oConn.Close();
+            }
+        }
+
+        public DataSet getCategorias()
+        {
+            SqlConnection oConn = new SqlConnection(Constants.connectionString);
+            oConn.Open();
+            try
+            {
+                using (NoticiaDataAccess tDataAccess = new NoticiaDataAccess())
+                {
+                    return tDataAccess.GetCategorias(oConn, null);
                 }
             }
             finally
