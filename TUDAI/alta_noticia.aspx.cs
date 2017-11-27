@@ -13,9 +13,11 @@ namespace TUDAI
             {
                 CargarDdls();
 
-                if (!string.IsNullOrEmpty(Request.QueryString.Get("edit")) && (Request.QueryString.Get("edit").Equals("true")))
+                this.mostrar(true);
+
+                if (!string.IsNullOrEmpty(Request.QueryString.Get("edit")))
                 {
-                    int id = (int) Session["idNoticia"];
+                    int id = (int)Session["idNoticia"];
 
                     Noticia oNoticia = new Noticia();
                     oNoticia.Id = id;
@@ -29,14 +31,30 @@ namespace TUDAI
                     this.date_fecha.SelectedDate = oNoticia.Fecha;
                     this.txt_cuerpo.Text = oNoticia.Cuerpo;
                     this.txt_autor.Text = oNoticia.Autor;
-                    this.ddl_categorias.SelectedIndex = (int) oNoticia.IdCategoria;
+                    this.ddl_categorias.SelectedIndex = (int)oNoticia.IdCategoria;                    
+
+                    if (Request.QueryString.Get("edit").Equals("false"))
+                    {
+                        this.mostrar(false);
+                    }
                 }
             }
         }
 
+        private void mostrar(Boolean val)
+        {
+            this.txt_cuerpo.Enabled = val;
+            this.txt_titulo.Enabled = val;
+            this.ddl_categorias.Enabled = val;
+            this.date_fecha.Enabled = val;
+            this.txt_autor.Enabled = val;
+
+            this.btn_submit.Visible = val;
+        }
+
         private void CargarDdls()
         {
-            ddl_categorias.DataSource = new CategoriaBusiness().GetCategorias();
+            ddl_categorias.DataSource = new CategoriaBusiness().GetCategorias();            
             ddl_categorias.DataBind();   
         }
 
@@ -45,18 +63,32 @@ namespace TUDAI
 
             var oNoticia = new Noticia()
             {
+                Id = (int)Session["idNoticia"],
                 Titulo = txt_titulo.Text,
                 Cuerpo = txt_cuerpo.Text,
                 Fecha = date_fecha.SelectedDate,
                 Autor = txt_autor.Text,
                 IdCategoria = string.IsNullOrEmpty(ddl_categorias.SelectedValue) ? -1 : int.Parse(ddl_categorias.SelectedValue),
             };
-            using (NoticiaBusiness n = new NoticiaBusiness())
+
+            if (!string.IsNullOrEmpty(Request.QueryString.Get("edit")) && (Request.QueryString.Get("edit").Equals("true")))
             {
-                n.InsertNoticia(oNoticia);
+                using (NoticiaBusiness n = new NoticiaBusiness())
+                {
+                    n.updateNoticia(oNoticia);
+                }
+
+                lbl_resultado.Text = "Noticia editada correctamente";
             }
-            lbl_resultado.Text = "Noticia publicada correctamente";            
-            
+            else
+            {
+                using (NoticiaBusiness n = new NoticiaBusiness())
+                {
+                    n.InsertNoticia(oNoticia);
+                }
+
+                lbl_resultado.Text = "Noticia publicada correctamente";
+            }       
         }
     }
 }

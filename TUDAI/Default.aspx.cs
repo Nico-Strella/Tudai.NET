@@ -18,13 +18,16 @@ namespace TUDAI
 
             Session.Add("idNoticia", id);
 
+            Noticia oNoticia = new Noticia();
+            oNoticia.Id = id;
+
             switch (e.CommandName)
             {
                 case "editar":
                     Response.Redirect("alta_noticia.aspx?edit=true", false);
                     break;
                 case "mostrar":
-                    Response.Redirect("alta_noticia.aspx?mostrar=true", false);
+                    Response.Redirect("alta_noticia.aspx?edit=false", false);
                     break;
                 default:
                     break;

@@ -55,6 +55,36 @@ namespace DAL
             }
         }
 
+        public void updateNoticia(SqlConnection oConn, SqlTransaction oTran, Noticia oNoticia)
+        {
+            using (SqlDataAdapter adapter = new SqlDataAdapter())
+            {
+                using (SqlCommand oComm = new SqlCommand())
+                {
+                    try
+                    {
+                        oComm.Connection = oTran != null ? oTran.Connection : oConn;
+                        oComm.Transaction = oTran;
+
+                        oComm.CommandType = CommandType.Text;
+                        oComm.CommandText = string.Format("UPDATE {0}.{1} SET [titulo]=@titulo, [fecha]=@fecha, [cuerpo]=@cuerpo, [id_categoria]=@id_categoria, [autor]=@autor WHERE id=@id", Constants.esquema, Constants.tablaNoticias);
+
+                        oComm.Parameters.AddWithValue("id", oNoticia.Id);
+                        oComm.Parameters.AddWithValue("titulo", oNoticia.Titulo);
+                        oComm.Parameters.AddWithValue("fecha", oNoticia.Fecha);
+                        oComm.Parameters.AddWithValue("cuerpo", oNoticia.Cuerpo);
+                        oComm.Parameters.AddWithValue("id_categoria", oNoticia.IdCategoria);
+                        oComm.Parameters.AddWithValue("autor", oNoticia.Autor);
+
+                        oComm.ExecuteNonQuery();
+                    }
+                    finally
+                    {
+                    }
+                }
+            }
+        }
+
         public DataSet GetAll(SqlConnection oConn, SqlTransaction oTran)
         {
             using (SqlDataAdapter adapter = new SqlDataAdapter())
